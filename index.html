@@ -37,10 +37,24 @@ canvas{width:100%;aspect-ratio:1;flex:none;display:block;touch-action:none;curso
 .sl{display:flex;gap:16px;align-items:center}.sl #bs{flex:2;width:auto}.sp{flex:1;display:flex;align-items:center;gap:8px;font-size:12px;color:var(--mut)}.sp input{flex:1;min-width:0;width:auto}
 .key{display:flex;gap:8px}.key button{flex:1;font-size:13px;white-space:nowrap;min-width:0;padding:0 6px}[hidden]{display:none!important}.harm{display:flex;gap:10px;height:104px}#kbd,#wheel{aspect-ratio:auto;height:100%}#kbd{flex:1;min-width:0;width:auto}#wheel{flex:0 0 104px;width:104px}.key #rec.on{border-color:#e0307f;color:#e0307f;animation:bl 1s steps(2) infinite}@keyframes bl{50%{opacity:.55}}@media(prefers-reduced-motion:reduce){.key #rec.on{animation:none}}
 .ctl .d{flex:0 0 52px}.rr{display:flex;justify-content:space-between}.rr button{width:36px;height:36px;min-height:0;padding:0;border-radius:50%;font-size:13px}.rr button.on{background:var(--c);border-color:var(--c);color:#0f1420}
+
+.panel{display:flex;flex-direction:column;gap:8px}
+@media (min-width:720px) and (orientation:landscape),(min-width:720px) and (hover:hover) and (pointer:fine){
+  :root{padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px)}
+  .app{max-width:1180px;display:grid;grid-template-columns:minmax(0,1fr) 220px;grid-template-areas:"grid panel" "harm panel";grid-template-rows:auto auto;align-content:center;gap:8px 12px}
+  .panel{grid-area:panel;align-self:start}
+  .grid{grid-area:grid;grid-template-columns:repeat(4,minmax(0,1fr));align-content:start}
+  .harm{grid-area:harm}
+  header{flex-wrap:wrap;gap:4px 12px}
+  .key{flex-wrap:wrap}.key button{flex:1 1 96px}
+  .ctl button{font-size:12px}
+  .rr{gap:4px}.rr button{width:auto;height:auto;flex:1 1 0;max-width:36px;aspect-ratio:1;align-self:center;font-size:12px}
+}
 </style>
 </head>
 <body>
 <div class="app">
+  <aside class="panel">
   <header>
     <h1>Circles<small>S33</small></h1>
     <div class="bpm">
@@ -52,6 +66,7 @@ canvas{width:100%;aspect-ratio:1;flex:none;display:block;touch-action:none;curso
   <div class="sl"><input type="range" id="bs" min="40" max="200" value="90" aria-label="BPM"><label class="sp">Spazio<input type="range" id="sp" min="0" max="100" value="65" aria-label="Spazio interno: riverbero e delay"></label></div>
   <div class="key"><button id="kb">Tonalità La</button><button id="mb" aria-label="Modo">Minore</button><button id="lk" aria-label="Palline libere o agganciate al tempo">Libere</button></div>
   <div class="key"><button id="st" aria-label="Ferma tutto">■ Stop</button><button id="rec" disabled>● MIDI REC</button><button id="ev" aria-label="Evoluzione armonica">Evol. ○</button></div>
+  </aside>
   <div class="harm"><canvas id="kbd" aria-label="Tastiera: tocca un tasto per spostare l'accordo"></canvas><canvas id="wheel" aria-label="Circolo delle quinte: tocca per cambiare tonalità"></canvas></div>
   <main class="grid" id="grid"></main>
 </div>
